@@ -6,11 +6,12 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
-const passwordValidator = require('password-validator');
 
 // Definindo modelo de conta para autenticação
 
 const User = require('./models/account');
+
+lowercase(2).symbols(2)
 
 // Conectando ao database
 
@@ -62,6 +63,8 @@ app.use((req, res, next) => {
     next();
 })
 
+// Rotas
+
 app.get('/register', (req, res) => {
     res.render('register');
 })
@@ -70,7 +73,6 @@ app.post('/register', async (req, res) => {
     try {
         const {username, password, email, RUT} = req.body;
         const user = new User({username, email, RUT});
-        
         const registeredUser = await User.register(user, password);
         req.login(registeredUser, err => {
             if (err) return next(err);
