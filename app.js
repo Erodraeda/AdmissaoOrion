@@ -1,4 +1,4 @@
-// Importando Express, Mongoose e Passport
+// Importando Express, Mongoose, Passport e Password-Validator
 
 const express = require('express');
 const app = express();
@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const passwordValidator = require('password-validator');
 
 // Definindo modelo de conta para autenticação
 
