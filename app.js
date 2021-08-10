@@ -61,6 +61,10 @@ app.use((req, res, next) => {
     next();
 })
 
+app.get('/register', (req, res) => {
+    res.render('register');
+})
+
 app.get('/', (req, res) => {
     res.redirect('/home');
 })
