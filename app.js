@@ -7,6 +7,10 @@ const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 
+// Definindo modelo de conta para autenticação
+
+const User = require('./models/account');
+
 // Conectando ao database
 
 mongoose.connect('mongodb://localhost:27017/dbAdmissao', {useNewUrlParser: true, useUnifiedTopology: true})
@@ -56,3 +60,15 @@ app.use((req, res, next) => {
     res.locals.currentUser = req.user;
     next();
 })
+
+app.get('/', (req, res) => {
+    res.redirect('/home');
+})
+
+app.get('/home', (req, res) => {
+    res.render('home');
+})
+
+app.listen(3000, () => {
+    console.log("server up");
+});
