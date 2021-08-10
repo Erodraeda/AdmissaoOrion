@@ -4,7 +4,7 @@
     <form id="register" class="row g-3" action="/register" method="POST">
         <div class="col-md-12">
           <label for="nome" class="form-label">Nome</label>
-          <input type="text" class="form-control" name="nome" id="nome" placeholder="Insira seu nome" required>
+          <input type="text" class="form-control" name="username" id="nome" placeholder="Insira seu nome" required>
         </div>
         <div class="col-md-12">
             <label for="email" class="form-label">Email Adress</label>
@@ -12,7 +12,7 @@
         </div>
         <div class="col-md-12">
             <label for="RUT" class="form-label">RUT</label>
-            <input type="text" class="form-control" name="RUT" id="RUT" pattern="[0-9]*" placeholder="Insira seu RUT" required>
+            <input type="text" class="form-control" name="RUT" id="RUT" pattern="[0-9]{9}" placeholder="Insira seu RUT (apenas numeros)" required>
         </div>
         <div class="col-md-12">
           <label for="password" class="form-label">Password</label>
