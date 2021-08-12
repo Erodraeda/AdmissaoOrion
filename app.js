@@ -70,7 +70,7 @@ app.get('/register', (req, res) => {
 app.post('/register', async (req, res) => {
     try {
         const {username, password, email, RUT} = req.body;
-        const user = new User({username, email, RUT});
+        const user = new User({email, username, RUT});
         const registeredUser = await User.register(user, password);
         req.login(registeredUser, err => {
             if (err) return next(err);
@@ -86,6 +86,12 @@ app.post('/register', async (req, res) => {
 
 app.get('/login', (req, res) => {
     res.render('login');
+})
+
+app.post('/login', passport.authenticate("local", {failureRedirect: "/login"}), (req,res) => {
+    const redirectUrl = req.session.returnTo || "/home";
+    delete req.session.returnTo;
+    res.redirect(redirectUrl);
 })
 
 app.get('/', (req, res) => {
