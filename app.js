@@ -11,8 +11,6 @@ const LocalStrategy = require('passport-local');
 
 const User = require('./models/account');
 
-lowercase(2).symbols(2)
-
 // Conectando ao database
 
 mongoose.connect('mongodb://localhost:27017/dbAdmissao', {useNewUrlParser: true, useUnifiedTopology: true})

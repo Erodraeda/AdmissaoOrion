@@ -20,12 +20,6 @@ const accountSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
-    },
-    _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        index: true,
-        required: true,
-        auto: true        
     }
 })
 
