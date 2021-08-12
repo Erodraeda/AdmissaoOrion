@@ -98,6 +98,10 @@ app.get('/local_order', isLoggedIn, async (req, res) => {
     res.render('localorder');
 })
 
+app.post('/local_order', isLoggedIn, async (req, res) => {
+    res.render('localorder');
+})
+
 app.get('/', (req, res) => {
     res.redirect('/home');
 })
