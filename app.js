@@ -94,6 +94,10 @@ app.post('/login', passport.authenticate("local", {failureRedirect: "/login"}), 
     res.redirect(redirectUrl);
 })
 
+app.get('/local_order', isLoggedIn, async (req, res) => {
+    res.render('localorder');
+})
+
 app.get('/', (req, res) => {
     res.redirect('/home');
 })
