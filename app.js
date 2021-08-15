@@ -95,13 +95,8 @@ app.get('/login', (req, res) => {
 })
 
 app.post('/login', passport.authenticate("local", {failureRedirect: "/login"}), (req,res) => {
-    try {
-        const redirectUrl = req.session.returnTo || "/home";
-        delete req.session.returnTo;
-    } catch (err) {
-        console.log(err);
-    }
-    
+    const redirectUrl = req.session.returnTo || "/home";
+    delete req.session.returnTo;
     res.redirect(redirectUrl);
 })
 
