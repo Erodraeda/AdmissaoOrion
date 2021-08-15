@@ -1,15 +1,16 @@
 // Importando Express, Mongoose, Passport e Password-Validator
 
 const express = require('express');
-const app = express();
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const app = express();
 
 // Definindo modelo de conta para autenticação
 
 const User = require('./models/account');
+const Order = require('./models/order');
 
 // Conectando ao database
 
@@ -36,17 +37,19 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.urlencoded({extended: true}));
 
-app.use(session({secret:'account', resave: false, saveUninitialized: false}));
+app.use(session({secret:"account", resave: false, saveUninitialized: false}));
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new LocalStrategy(User.authenticate()));
+passport.use(new LocalStrategy({
+    usernameField: 'email'},
+    User.authenticate()));
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-//Definição de autenticação
+// Definição de autenticação
 
 const isLoggedIn = (req, res, next) => {
     if(req.isAuthenticated()){
@@ -70,10 +73,13 @@ app.get('/register', (req, res) => {
 app.post('/register', async (req, res) => {
     try {
         const {username, password, email, RUT} = req.body;
-        const user = new User({email, username, RUT});
+        const user = new User({username, email, RUT});
         const registeredUser = await User.register(user, password);
         req.login(registeredUser, err => {
-            if (err) return next(err);
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
         })
     } catch (e) {
         console.log(e);
@@ -89,9 +95,19 @@ app.get('/login', (req, res) => {
 })
 
 app.post('/login', passport.authenticate("local", {failureRedirect: "/login"}), (req,res) => {
-    const redirectUrl = req.session.returnTo || "/home";
-    delete req.session.returnTo;
+    try {
+        const redirectUrl = req.session.returnTo || "/home";
+        delete req.session.returnTo;
+    } catch (err) {
+        console.log(err);
+    }
+    
     res.redirect(redirectUrl);
+})
+
+app.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
 })
 
 app.get('/local_order', isLoggedIn, async (req, res) => {
@@ -99,7 +115,9 @@ app.get('/local_order', isLoggedIn, async (req, res) => {
 })
 
 app.post('/local_order', isLoggedIn, async (req, res) => {
-    res.render('localorder');
+    const newOrder = new Order(req.body);
+    await newOrder.save();
+    res.redirect('/home');
 })
 
 app.get('/', (req, res) => {

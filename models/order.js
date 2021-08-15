@@ -20,7 +20,7 @@ const orderSchema = new mongoose.Schema({
         required: true
     },
     placas: {
-        type: int,
+        type: Number,
         required: true,
         min: 1,
         max: 10
