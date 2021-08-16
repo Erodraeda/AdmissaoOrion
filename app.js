@@ -114,7 +114,43 @@ app.post('/local_order', async (req, res) => {
     var porcentagem;
     if (contrato.value == multiplos) porcentagem = 30;
     else if (contrato.value == unico) porcentagem = 10;
-    const newOrder = new Order({ distribuidor, linguagem, contrato, porcentagem, placas, jogos, local, cidade });
+    var sku = "";
+    switch (distribuidor.value) {
+        case 'eua': sku += 'EUA';
+        case 'mexico': sku += 'MEX';
+        case 'chile': sku += 'CHI';
+    }
+    sku += "-";
+    switch (linguagem.value) {
+        case 'ingles': sku += 'ING';
+        case 'espanhol': sku += 'ESP';
+    }
+    sku += "-";
+    switch (placas.value) {
+        case 1: sku += '01';
+        case 2: sku += '02';
+        case 3: sku += '03';
+        case 4: sku += '04';
+        case 5: sku += '05';
+        case 6: sku += '06';
+        case 7: sku += '07';
+        case 8: sku += '08';
+        case 9: sku += '09';
+        case 10: sku += '10';
+    }
+    sku += "-";
+    for (var i = 0; i < 5; i ++) {
+        switch (jogos[i].value) {
+            case 'halloween': sku += 'H';
+            case 'valentinesday': sku += 'V';
+            case 'eastersunday': sku += 'E';
+            case 'newyear': sku += 'N';
+            case 'lunarnewyear': sku += 'L';
+            case 'thanksgiving': sku += 'T';
+            case 'diademuertos': sku += 'D';
+        }
+    }
+    const newOrder = new Order({ distribuidor, linguagem, contrato, porcentagem, placas, jogos, local, cidade, sku });
     await newOrder.save();
     res.redirect('/home');
 })

@@ -26,7 +26,7 @@ const orderSchema = new mongoose.Schema({
         max: 10
     },
     jogos: {
-        type: String,
+        type: String[5],
         required: true,
         max: 5,
     },
@@ -36,6 +36,10 @@ const orderSchema = new mongoose.Schema({
         maxLength: 30
     },
     cidade: {
+        type: String,
+        required: true
+    },
+    sku: {
         type: String,
         required: true
     }
