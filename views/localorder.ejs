@@ -20,7 +20,7 @@
             
             <div id="linguagem-div">
 
-                <label for="linguagem-opcoes" id="linguagem-label"></label>
+                <label for="linguagem-opcoes" id="linguagem-label">Linguagem</label>
                 <select name="linguagem-opcoes" id="linguagem-select">
                     <option value="linguagem">Escolha uma linguagem</option>
                     <option value="ingles">Inglês</option>
@@ -31,7 +31,7 @@
 
             <div id="contrato-div">
 
-                <label for="contrato-opcoes" id="contrato-label"></label>
+                <label for="contrato-opcoes" id="contrato-label">Contrato</label>
                 <select name="contrato-opcoes" id="contrato-select">
                     <option value="contrato">Escolha uma forma de contrato</option>
                     <option value="unico">Único Jogo</option>
@@ -42,7 +42,7 @@
 
             <div id="jogos-div">
 
-                <label for="jogos-opcoes" id="jogos-label"></label>
+                <label for="jogos-opcoes" id="jogos-label">Jogos (até 5)</label>
                 <select name="jogos-opcoes" id="jogos-select" size="5">
                     <option value="jogos">Escolha até 5 jogos</option>
                     <option value="halloween">Halloween</option>
@@ -53,26 +53,28 @@
                     <option value="thanksgiving">Thanksgiving</option>
                     <option value="diademuertos">Día de Muertos</option>
                 </select>
+
+                <textarea name="jogos-opcoes" id="jogos-input-text" cols="50" rows="5" wrap="hard" readonly placeholder="Seus jogos"></textarea>
         
             </div>
 
             <div id="placas-div">
 
-                <label for="placas-opcoes" id="placas-label"></label>
+                <label for="placas-opcoes" id="placas-label">Placas (até 10)</label>
                 <input type="number" name="placas" id="placas-input" min="0" max="10">
         
             </div>
 
             <div id="local-div">
 
-                <label for="local-opcoes" id="local-label"></label>
+                <label for="local-opcoes" id="local-label">Local</label>
                 <input type="text" name="local" id="local-input" maxlength="30">
 
             </div>
 
             <div id="cidade-div">
 
-                <label for="cidade-opcoes" id="cidade-label"></label>
+                <label for="cidade-opcoes" id="cidade-label">Cidade</label>
                 <input type="text" name="cidade" id="cidade-input">
 
             </div>
@@ -80,5 +82,7 @@
         </div>
     
     </form>
+
+    <script type="text/javascript" src="js/localorder.js"></script>
 
 <%- include('partials/footer') %>

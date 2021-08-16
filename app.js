@@ -105,13 +105,13 @@ app.get('/logout', (req, res) => {
     res.redirect('/');
 })
 
-app.get('/local_order', isLoggedIn, async (req, res) => {
+app.get('/local_order', async (req, res) => {
     res.render('localorder');
 })
 
-app.post('/local_order', isLoggedIn, async (req, res) => {
+app.post('/local_order', async (req, res) => {
     const { distribuidor, linguagem, contrato, placas, jogos, local, cidade } = req.body;
-    const porcentagem;
+    var porcentagem;
     if (contrato.value == multiplos) porcentagem = 30;
     else if (contrato.value == unico) porcentagem = 10;
     const newOrder = new Order({ distribuidor, linguagem, contrato, porcentagem, placas, jogos, local, cidade });
