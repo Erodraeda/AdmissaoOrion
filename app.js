@@ -114,11 +114,11 @@ app.post('/local_order', async (req, res) => {
         const { distribuidor, linguagem, placas, jogos, local, cidade } = req.body;
         var porcentagem;
         var contrato;
-        if (jogos.length > 1) {
+        if (jogos.length < 5) {
             porcentagem = 30;
             contrato = 'multiplos';
         }
-        else if (jogos.length == 1) {
+        else if (jogos.length > 5) {
             porcentagem = 10;
             contrato = 'unico';
         }
