@@ -110,7 +110,11 @@ app.get('/local_order', isLoggedIn, async (req, res) => {
 })
 
 app.post('/local_order', isLoggedIn, async (req, res) => {
-    const newOrder = new Order(req.body);
+    const { distribuidor, linguagem, contrato, placas, jogos, local, cidade } = req.body;
+    const porcentagem;
+    if (contrato.value == multiplos) porcentagem = 30;
+    else if (contrato.value == unico) porcentagem = 10;
+    const newOrder = new Order({ distribuidor, linguagem, contrato, porcentagem, placas, jogos, local, cidade });
     await newOrder.save();
     res.redirect('/home');
 })
