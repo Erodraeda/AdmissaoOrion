@@ -110,48 +110,52 @@ app.get('/local_order', async (req, res) => {
 })
 
 app.post('/local_order', async (req, res) => {
-    const { distribuidor, linguagem, contrato, placas, jogos, local, cidade } = req.body;
-    var porcentagem;
-    if (contrato.value == multiplos) porcentagem = 30;
-    else if (contrato.value == unico) porcentagem = 10;
-    var sku = "";
-    switch (distribuidor.value) {
-        case 'eua': sku += 'EUA';
-        case 'mexico': sku += 'MEX';
-        case 'chile': sku += 'CHI';
-    }
-    sku += "-";
-    switch (linguagem.value) {
-        case 'ingles': sku += 'ING';
-        case 'espanhol': sku += 'ESP';
-    }
-    sku += "-";
-    switch (placas.value) {
-        case 1: sku += '01';
-        case 2: sku += '02';
-        case 3: sku += '03';
-        case 4: sku += '04';
-        case 5: sku += '05';
-        case 6: sku += '06';
-        case 7: sku += '07';
-        case 8: sku += '08';
-        case 9: sku += '09';
-        case 10: sku += '10';
-    }
-    sku += "-";
-    for (var i = 0; i < 5; i ++) {
-        switch (jogos[i].value) {
-            case 'halloween': sku += 'H';
-            case 'valentinesday': sku += 'V';
-            case 'eastersunday': sku += 'E';
-            case 'newyear': sku += 'N';
-            case 'lunarnewyear': sku += 'L';
-            case 'thanksgiving': sku += 'T';
-            case 'diademuertos': sku += 'D';
+    try {
+        const { distribuidor, linguagem, placas, jogos, local, cidade } = req.body;
+        var porcentagem;
+        var contrato;
+        if (jogos.length > 1) {
+            porcentagem = 30;
+            contrato = 'multiplos';
         }
+        else if (jogos.length == 1) {
+            porcentagem = 10;
+            contrato = 'unico';
+        }
+        var sku = "";
+        if (distribuidor == 'eua') sku += 'EUA';
+        else if (distribuidor == 'mexico') sku += 'MEX';
+        else if (distribuidor == 'chile') sku += 'CHI';
+        sku += '-';
+        if (linguagem == 'ingles') sku += 'ING';
+        else if (linguagem == 'espanhol') sku += 'ESP';
+        sku += '-';
+        if (placas == 1) sku += '01';
+        else if (placas == 2) sku += '02';
+        else if (placas == 3) sku += '03';
+        else if (placas == 4) sku += '04';
+        else if (placas == 5) sku += '05';
+        else if (placas == 6) sku += '06';
+        else if (placas == 7) sku += '07';
+        else if (placas == 8) sku += '08';
+        else if (placas == 9) sku += '09';
+        else if (placas == 10) sku += '10';
+        sku += '-';
+        for (var i = 0; i < 5; i ++) {
+            if (jogos[i] == 'halloween') sku += 'H';
+            else if (jogos[i] == 'valentinesday') sku += 'V';
+            else if (jogos[i] == 'eastersunday') sku += 'E';
+            else if (jogos[i] == 'newyear') sku += 'N';
+            else if (jogos[i] == 'lunarnewyear') sku += 'L';
+            else if (jogos[i] == 'thanksgiving') sku += 'T';
+            else if (jogos[i] == 'diademuertos') sku += 'D';
+        }
+        const newOrder = new Order( {distribuidor, linguagem, contrato, porcentagem, placas, jogos, local, cidade, sku} );
+        await newOrder.save();
+    } catch (err) {
+        console.log(err);
     }
-    const newOrder = new Order({ distribuidor, linguagem, contrato, porcentagem, placas, jogos, local, cidade, sku });
-    await newOrder.save();
+    
     res.redirect('/home');
 })
 

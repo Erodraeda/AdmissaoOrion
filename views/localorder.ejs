@@ -9,7 +9,7 @@
             <div id="distribuidor-div">
 
                 <label for="distribuidor-opcoes" id="distribuidor-label">Distribuidor</label>
-                <select name="distribuidor-opcoes" id="distribuidor-select">
+                <select name="distribuidor" id="distribuidor-select">
                     <option value="distribuidor">Escolha um Distribuidor</option>
                     <option value="eua">EUA</option>
                     <option value="mexico">México</option>
@@ -21,7 +21,7 @@
             <div id="linguagem-div">
 
                 <label for="linguagem-opcoes" id="linguagem-label">Linguagem</label>
-                <select name="linguagem-opcoes" id="linguagem-select">
+                <select name="linguagem" id="linguagem-select">
                     <option value="linguagem">Escolha uma linguagem</option>
                     <option value="ingles">Inglês</option>
                     <option value="espanhol">Espanhol</option>
@@ -29,22 +29,14 @@
 
             </div>
 
-            <div id="contrato-div">
-
-                <label for="contrato-opcoes" id="contrato-label">Contrato</label>
-                <select name="contrato-opcoes" id="contrato-select">
-                    <option value="contrato">Escolha uma forma de contrato</option>
-                    <option value="unico">Único Jogo</option>
-                    <option value="multiplos">Multiplos Jogos</option>
-                </select>
-        
-            </div>
-
             <div id="jogos-div">
 
-                <label for="jogos-opcoes" id="jogos-label">Jogos (até 5)</label>
-                <select name="jogos-opcoes" id="jogos-select" size="5">
-                    <option value="jogos">Escolha até 5 jogos</option>
+                <label for="jogos-opcoes" id="jogos-label">Jogos</label>
+
+                <% for (var i = 0; i < 5; i++ ) { %>
+
+                <select name="jogos" id="jogos-select">
+                    <option value="">Selecione um Jogo!</option>
                     <option value="halloween">Halloween</option>
                     <option value="valentinesday">Valentine's Day</option>
                     <option value="eastersunday">Easter Sunday</option>
@@ -54,7 +46,7 @@
                     <option value="diademuertos">Día de Muertos</option>
                 </select>
 
-                <textarea name="jogos-opcoes" id="jogos-input-text" cols="50" rows="5" wrap="hard" readonly placeholder="Seus jogos"></textarea>
+                <% } %>
         
             </div>
 

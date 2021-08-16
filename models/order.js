@@ -26,7 +26,7 @@ const orderSchema = new mongoose.Schema({
         max: 10
     },
     jogos: {
-        type: String[5],
+        type: [String],
         required: true,
         max: 5,
     },
