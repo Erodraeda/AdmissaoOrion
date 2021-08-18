@@ -114,7 +114,7 @@ app.post('/local_order', async (req, res) => {
         const { distribuidor, linguagem, placas, jogos, local, cidade } = req.body;
         var porcentagem;
         var contrato;
-        if (jogos.length < 5) {
+        if (jogos.length <= 5) {
             porcentagem = 30;
             contrato = 'multiplos';
         }
@@ -142,13 +142,13 @@ app.post('/local_order', async (req, res) => {
         else if (placas == 10) sku += '10';
         sku += '-';
         for (var i = 0; i < 5; i ++) {
-            if (jogos[i] == 'halloween') sku += 'H';
-            else if (jogos[i] == 'valentinesday') sku += 'V';
-            else if (jogos[i] == 'eastersunday') sku += 'E';
-            else if (jogos[i] == 'newyear') sku += 'N';
-            else if (jogos[i] == 'lunarnewyear') sku += 'L';
-            else if (jogos[i] == 'thanksgiving') sku += 'T';
-            else if (jogos[i] == 'diademuertos') sku += 'D';
+            if (jogos[i] == 'halloween') sku += 'Ha';
+            else if (jogos[i] == 'valentinesday') sku += 'Va';
+            else if (jogos[i] == 'eastersunday') sku += 'Ea';
+            else if (jogos[i] == 'newyear') sku += 'Ne';
+            else if (jogos[i] == 'lunarnewyear') sku += 'Lu';
+            else if (jogos[i] == 'thanksgiving') sku += 'Th';
+            else if (jogos[i] == 'diademuertos') sku += 'Di';
         }
         const newOrder = new Order( {distribuidor, linguagem, contrato, porcentagem, placas, jogos, local, cidade, sku} );
         await newOrder.save();
@@ -157,6 +157,29 @@ app.post('/local_order', async (req, res) => {
     }
     
     res.redirect('/home');
+})
+
+app.get('/locals', (req, res) => {
+    const { result } = "";
+    res.render('locals.ejs', {result});
+})
+
+app.get('/locals/:search', async (req, res) => {
+    const { search } = req.params;
+
+    const result = await Order.find({
+        'sku': { $in: [
+            search
+        ]},
+        'local': { $in: [
+            search
+        ]},
+        'cidade': { $in: [
+            search
+        ]},
+    });
+
+    res.render('locals.ejs', {result});
 })
 
 app.get('/', (req, res) => {

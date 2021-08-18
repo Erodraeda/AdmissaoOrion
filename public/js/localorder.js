@@ -10,3 +10,6 @@ document.getElementById("jogos-select").onchange = function() {
 
     input.value = proficiencies;
 };
+
+// Return de sucesso da requisição
+

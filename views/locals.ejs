@@ -1,0 +1,27 @@
+<%- include('partials/header') %>
+
+ <h1>Search for Locals</h1>
+
+    <form action="/locals/:search" method="GET">
+
+    <div>
+
+        <label for="pesquisa" id="label-pesquisa">Pesquise pelo SKU do produto, pelo nome do pedido ou pela cidade deste</label>
+
+        <br>
+
+        <input type="text" name="pesquisa" id="input-pesquisa" placeholder="Pesquisa">
+    	
+        <button>Pesquisar</button>
+
+    </div>
+
+    </form>
+
+    <% for (var i = 0; i < result.length; i++) { %>
+
+        <li><%= result[i] %></li>
+
+    <% } %>
+
+<%- include('partials/footer') %>
