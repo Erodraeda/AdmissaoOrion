@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+    <a class="navbar-brand" href="/home"><img src="images/logo.png" alt="" id="logoImage"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/local_order">Order Locals</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/local_search">Search for Locals</a>
+          </li>
+        </ul>
+        </div>
+        <div class="navbar-text">
+          <% if (currentUser) { %> 
+            <a href="/logout" id="login-button">Sign out</a>
+          <% } else { %> 
+            <a href="/login" id="login-button">Sign in</a>
+            <br>
+            <a href="/register" id="register-button">New here?</a>
+          <% } %> 
+        </div>
+    </div>
+</nav>

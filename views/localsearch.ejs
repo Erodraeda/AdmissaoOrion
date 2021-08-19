@@ -1,0 +1,24 @@
+<%- include('partials/header') %>
+
+    <a href="/home">Home Page</a>
+    <br>
+
+ <h1>Search for Locals</h1>
+
+    <form action="/locals/search" method="GET">
+
+    <div>
+
+        <label for="pesquisa" id="label-pesquisa">Pesquise pelo SKU do produto, pelo nome do pedido ou pela cidade deste</label>
+
+        <br>
+
+        <input type="text" name="pesquisa" id="input-pesquisa" placeholder="Pesquisa">
+    	
+        <button>Pesquisar</button>
+
+    </div>
+
+    </form> 
+
+<%- include('partials/footer') %>

@@ -43,8 +43,6 @@ app.use(session({secret:"account", resave: false, saveUninitialized: false}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-
 passport.use(new LocalStrategy({
     usernameField: 'email'
     }, User.authenticate()));
@@ -109,11 +107,11 @@ app.get('/logout', (req, res) => {
     res.redirect('/');
 })
 
-app.get('/local_order', async (req, res) => {
+app.get('/local_order', isLoggedIn, async (req, res) => {
     res.render('localorder');
 })
 
-app.post('/local_order', async (req, res) => {
+app.post('/local_order', isLoggedIn, async (req, res) => {
     try {
         const { distribuidor, linguagem, placas, jogos, local, cidade } = req.body;
         var porcentagem;
@@ -164,18 +162,19 @@ app.post('/local_order', async (req, res) => {
     res.redirect('/home');
 })
 
-app.get('/locals', (req, res) => {
-    res.render('locals.ejs');
+app.get('/local_search', isLoggedIn, (req, res) => {
+    res.render('localsearch.ejs');
 })
 
-app.get('/locals/search', async (req, res) => {
+app.get('/locals/search', isLoggedIn, async (req, res) => {
+    
     const { pesquisa } = req.query;
 
-    const resultSku = await Order.find({ sku: { $regex : pesquisa } });
+    resultSku = await Order.find({ sku: { $regex : pesquisa } });
 
-    const resultNome = await Order.find({ local: { $regex : pesquisa } });
+    resultNome = await Order.find({ local: { $regex : pesquisa } });
 
-    const resultCidade = await Order.find({ cidade: { $regex : pesquisa } });
+    resultCidade = await Order.find({ cidade: { $regex : pesquisa } });
 
     res.render('locals.ejs', { resultNome, resultSku, resultCidade });
         
