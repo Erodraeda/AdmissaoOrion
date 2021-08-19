@@ -5,7 +5,7 @@
 
  <h1>Search for Locals</h1>
 
-    <form action="/locals/:search" method="GET">
+    <form action="/locals/search" method="GET">
 
     <div>
 
@@ -19,12 +19,28 @@
 
     </div>
 
-    </form>
+    </form> 
 
-    <% for (var i = 0; i < result.length; i++) { %>
-
-        <li><%= result[i] %></li>
-
-    <% } %>
+    <ul>
+        <% for (resultS of resultSku) { %> 
+            <li>    
+                <%= resultS %> 
+            </li>
+        <% } %> 
+    </ul>
+    <ul>
+        <% for (resultN of resultNome) { %> 
+            <li>
+                <%= resultN %> 
+            </li>
+        <% } %> 
+    </ul>
+    <ul>
+        <% for (resultC of resultCidade) { %> 
+            <li>
+                <%= resultC %> 
+            </li>
+        <% } %> 
+    </ul>
 
 <%- include('partials/footer') %>

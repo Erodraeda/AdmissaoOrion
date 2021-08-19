@@ -4,7 +4,7 @@ const passportLocalMongoose = require('passport-local-mongoose');
 // Account Schema para autenticação e registro de contas
 
 const accountSchema = new mongoose.Schema({
-    username: {
+    nome: {
         type: String,
         required: true
     },

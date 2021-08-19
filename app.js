@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const passportLocalMongoose = require ('passport-local-mongoose');
 const app = express();
 
 // Definindo modelo de conta para autenticação
@@ -42,9 +43,11 @@ app.use(session({secret:"account", resave: false, saveUninitialized: false}));
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+
 passport.use(new LocalStrategy({
-    usernameField: 'email'},
-    User.authenticate()));
+    usernameField: 'email'
+    }, User.authenticate()));
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -75,6 +78,7 @@ app.post('/register', async (req, res) => {
         const {username, password, email, RUT} = req.body;
         const user = new User({username, email, RUT});
         const registeredUser = await User.register(user, password);
+        console.log(registeredUser);
         req.login(registeredUser, err => {
             if (err) {
                 console.log(err);
@@ -152,6 +156,7 @@ app.post('/local_order', async (req, res) => {
         }
         const newOrder = new Order( {distribuidor, linguagem, contrato, porcentagem, placas, jogos, local, cidade, sku} );
         await newOrder.save();
+        console.log(newOrder);
     } catch (err) {
         console.log(err);
     }
@@ -160,27 +165,21 @@ app.post('/local_order', async (req, res) => {
 })
 
 app.get('/locals', (req, res) => {
-    const { result } = "";
-    res.render('locals.ejs', {result});
+    res.render('locals.ejs');
 })
 
-app.get('/locals/:search', async (req, res) => {
-    const { search } = req.params;
+app.get('/locals/search', async (req, res) => {
+    const { pesquisa } = req.query;
 
-    const result = await Order.find({
-        'sku': { $in: [
-            search
-        ]},
-        'local': { $in: [
-            search
-        ]},
-        'cidade': { $in: [
-            search
-        ]},
+    const resultSku = await Order.find({ sku: { $regex : pesquisa } });
+
+    const resultNome = await Order.find({ local: { $regex : pesquisa } });
+
+    const resultCidade = await Order.find({ cidade: { $regex : pesquisa } });
+
+    res.render('locals.ejs', { resultNome, resultSku, resultCidade });
+        
     });
-
-    res.render('locals.ejs', {result});
-})
 
 app.get('/', (req, res) => {
     res.redirect('/home');
