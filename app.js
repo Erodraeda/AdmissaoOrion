@@ -162,7 +162,7 @@ app.post('/local_order', isLoggedIn, async (req, res) => {
     res.redirect('/home');
 })
 
-app.get('/local_search', isLoggedIn, (req, res) => {
+app.get('/locals', isLoggedIn, (req, res) => {
     res.render('localsearch.ejs');
 })
 
