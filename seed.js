@@ -1,8 +1,12 @@
 // Rode este arquivo (node seed.js) para criar contas e locals.
 
+const express = require('express');
 const mongoose = require('mongoose');
+const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const app = express();
+
 const User = require('./models/account');
 const Order = require('./models/order');
 
@@ -15,9 +19,19 @@ mongoose.connect('mongodb://localhost:27017/dbAdmissao', {useNewUrlParser: true,
     console.log(err);
 })
 
+app.use(express.urlencoded({extended: true}));
+
+app.use(session({secret:"account", resave: false, saveUninitialized: false}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 passport.use(new LocalStrategy({
     usernameField: 'email'
 }, User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // Criação de contas
 
@@ -41,7 +55,7 @@ const conta3 = new User({
 })
 
 // Criação de conta administradora (role admin, por padrão definida como "User").
-// Esse tipo de conta pode ser criada apenas pelo console.
+// Esse tipo de conta pode ser criada apenas por seeding.
 
 const admin1 = new User({
     username: "Lucas",
@@ -89,13 +103,54 @@ const local3 = new Order({
 
 // Adição de seeds à database
 
-User.insertMany([conta1, conta2, conta3, admin1])
-    .then(res => {
-        console.log(res)
-    })
-    .catch(e => {
-        console.log(e)
-    })
+function createAccount1(conta1) {
+    try {
+        const {username, password, email, RUT} = conta1;
+        const user = new User({username, email, RUT});
+        const registeredUser = User.register(user, password);
+        console.log(registeredUser);
+        } catch (e) {
+        console.log(e);
+    }
+}
+
+function createAccount2(conta2) {
+    try {
+        const {username, password, email, RUT} = conta2;
+        const user = new User({username, email, RUT});
+        const registeredUser = User.register(user, password);
+        console.log(registeredUser);
+        } catch (e) {
+        console.log(e);
+    }
+}
+
+function createAccount3(conta3) {
+    try {
+        const {username, password, email, RUT} = conta3;
+        const user = new User({username, email, RUT});
+        const registeredUser = User.register(user, password);
+        console.log(registeredUser);
+        } catch (e) {
+        console.log(e);
+    }
+}
+
+function createAdmin1(admin1) {
+    try {
+        const {username, password, email, RUT, role} = admin1;
+        const user = new User({username, email, RUT, role});
+        const registeredUser = User.register(user, password);
+        console.log(registeredUser);
+        } catch (e) {
+        console.log(e);
+    }
+}
+
+createAccount1(conta1);
+createAccount2(conta2);
+createAccount3(conta3);
+createAdmin1(admin1);
 
 Order.insertMany([local1, local2, local3])
     .then(res => {
