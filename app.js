@@ -178,7 +178,13 @@ app.get('/locals/search', isLoggedIn, async (req, res) => {
 
     res.render('locals.ejs', { resultNome, resultSku, resultCidade });
         
-    });
+})
+
+app.get('/local_approval', isLoggedIn, async (req, res) => {
+
+
+    res.render('localapproval.ejs');
+})
 
 app.get('/', (req, res) => {
     res.redirect('/home');
