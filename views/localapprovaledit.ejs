@@ -2,7 +2,7 @@
 
 <%- include('partials/navbar') %>
 
-    <form action="/admin/local_approval/:id/edit" method="POST">
+    <form action="/admin/local_approval/<%= pedido._id %>/edit" method="POST">
     
         <div id="local-order-title">Local Order</div>
 
@@ -12,7 +12,7 @@
 
                 <label for="distribuidor-opcoes" id="distribuidor-label">Distribuidor</label>
                 <select name="distribuidor" id="distribuidor-select">
-                    <option disabled selected value=<%= local.distribuidor %>><%= local.distribuidor %></option>
+                    <option selected value=<%= pedido.distribuidor %>><%= pedido.distribuidor %></option>
                     <option value="eua">EUA</option>
                     <option value="mexico">México</option>
                     <option value="chile">Chile</option>
@@ -24,7 +24,7 @@
 
                 <label for="linguagem-opcoes" id="linguagem-label">Linguagem</label>
                 <select name="linguagem" id="linguagem-select">
-                    <option disabled selected value=<%= local.distribuidor %>><%= local.distribuidor %></option>
+                    <option selected value=<%= pedido.linguagem %>><%= pedido.linguagem %></option>
                     <option value="ingles">Inglês</option>
                     <option value="espanhol">Espanhol</option>
                 </select>
@@ -38,7 +38,8 @@
                 <% for (var i = 0; i < 5; i++ ) { %>
 
                 <select name="jogos" id="jogos-select">
-                    <option disabled selected value=<%= local.distribuidor %>><%= local.distribuidor %></option>
+                    <option selected value=<%= pedido.jogos[i] %>><%= pedido.jogos[i] %></option>
+                    <option value></option>
                     <option value="halloween">Halloween</option>
                     <option value="valentinesday">Valentine's Day</option>
                     <option value="eastersunday">Easter Sunday</option>
@@ -55,21 +56,21 @@
             <div id="placas-div">
 
                 <label for="placas-opcoes" id="placas-label">Placas (até 10)</label>
-                <input type="number" name="placas" id="placas-input" min="0" max="10" value=<%= local.distribuidor %>>
+                <input type="number" name="placas" id="placas-input" min="0" max="10" value=<%= pedido.placas %>>
         
             </div>
 
             <div id="local-div">
 
                 <label for="local-opcoes" id="local-label">Local</label>
-                <input type="text" name="local" id="local-input" maxlength="30" value=<%= local.distribuidor %>>
+                <input type="text" name="local" id="local-input" maxlength="30" value=<%= pedido.local %>>
 
             </div>
 
             <div id="cidade-div">
 
                 <label for="cidade-opcoes" id="cidade-label">Cidade</label>
-                <input type="text" name="cidade" id="cidade-input" value=<%= local.distribuidor %>>
+                <input type="text" name="cidade" id="cidade-input" value=<%= pedido.cidade %>>
 
             </div>
 

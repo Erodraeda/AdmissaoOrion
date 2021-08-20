@@ -198,39 +198,111 @@ app.get('/admin/local_approval', isLoggedIn, async (req, res) => {
 app.get('/admin/local_approval/:id/check', isLoggedIn, async (req, res) => {
     const {id} = req.params;
 
-    const local = await nonApprovedOrder.findById(id);
+    const pedido = await nonApprovedOrder.findById(id);
 
-    res.render('localapprovalcheck.ejs', { local });
+    res.render('localapprovalcheck.ejs', { pedido });
 })
 
 app.get('/admin/local_approval/:id/edit', isLoggedIn, async (req, res) => {
     const {id} = req.params;
 
-    const local = await nonApprovedOrder.findById(id);
+    const pedido = await nonApprovedOrder.findById(id);
 
-    res.render('localapprovaledit.ejs', { local });
+    res.render('localapprovaledit.ejs', { pedido });
 })
 
 app.post('/admin/local_approval/:id/edit', isLoggedIn, async (req, res) => {
     const {id} = req.params;
 
-    const local = await nonApprovedOrder.findByIdAndUpdate(id);
+    const { distribuidor, linguagem, placas, jogos, local, cidade } = req.body;
+        var porcentagem;
+        var contrato;
+        if (jogos.length <= 5) {
+            porcentagem = 30;
+            contrato = 'multiplos';
+        }
+        else if (jogos.length > 5) {
+            porcentagem = 10;
+            contrato = 'unico';
+        }
+        var sku = "";
+        if (distribuidor == 'eua') sku += 'EUA';
+        else if (distribuidor == 'mexico') sku += 'MEX';
+        else if (distribuidor == 'chile') sku += 'CHI';
+        sku += '-';
+        if (linguagem == 'ingles') sku += 'ING';
+        else if (linguagem == 'espanhol') sku += 'ESP';
+        sku += '-';
+        if (placas == 1) sku += '01';
+        else if (placas == 2) sku += '02';
+        else if (placas == 3) sku += '03';
+        else if (placas == 4) sku += '04';
+        else if (placas == 5) sku += '05';
+        else if (placas == 6) sku += '06';
+        else if (placas == 7) sku += '07';
+        else if (placas == 8) sku += '08';
+        else if (placas == 9) sku += '09';
+        else if (placas == 10) sku += '10';
+        sku += '-';
+        for (var i = 0; i < 5; i ++) {
+            if (jogos[i] == 'halloween') sku += 'Ha';
+            else if (jogos[i] == 'valentinesday') sku += 'Va';
+            else if (jogos[i] == 'eastersunday') sku += 'Ea';
+            else if (jogos[i] == 'newyear') sku += 'Ne';
+            else if (jogos[i] == 'lunarnewyear') sku += 'Lu';
+            else if (jogos[i] == 'thanksgiving') sku += 'Th';
+            else if (jogos[i] == 'diademuertos') sku += 'Di';
+        }
 
-    res.render('localapprovalcheck.ejs', { local });
+    const pedido = await nonApprovedOrder.findByIdAndUpdate(id, {
+        "distribuidor": distribuidor,
+        "linguagem": linguagem,
+        "contrato": contrato,
+        "porcentagem": porcentagem,
+        "placas": placas,
+        "jogos": jogos,
+        "local": local,
+        "cidade": cidade,
+        "sku": sku,
+    });
+
+    res.redirect('/admin/local_approval');
 })
 
 app.post('/admin/local_approval/:id/post', isLoggedIn, async (req, res) => {
     const {id} = req.params;
 
-    const local = await nonApprovedOrder.findById(id);
+    try {
 
-    const newOrder = new Order( local );
+        const aprovado = await nonApprovedOrder.findById(id);
 
-    await newOrder.save();
+        const { distribuidor, linguagem, placas, jogos, local, cidade, sku, porcentagem, contrato } = aprovado;
 
-    await nonApprovedOrder.findByIdAndDelete(id);
+        const newOrder = new Order( { distribuidor, linguagem, placas, jogos, local, cidade, sku, porcentagem, contrato} );
+    
+        await newOrder.save();
+    
+        await nonApprovedOrder.findByIdAndDelete(id);
 
-    res.redirect('/local/:id');
+    } catch (err) {
+        console.log(err);
+    }
+
+    res.redirect('/admin/local_approval');
+})
+
+app.post('/admin/local_approval/:id/delete', isLoggedIn, async (req, res) => {
+    const {id} = req.params;
+
+    try {
+    
+        await nonApprovedOrder.findByIdAndDelete(id);
+
+    } catch (err) {
+        console.log(err);
+    }
+
+    res.redirect('/admin/local_approval');
 })
 
 app.get('/', (req, res) => {

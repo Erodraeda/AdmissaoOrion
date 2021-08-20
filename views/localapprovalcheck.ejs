@@ -9,14 +9,14 @@
         <div id="distribuidor-div">
 
             <label for="distribuidor-opcoes" id="distribuidor-label">Distribuidor</label>
-            <input type="text" value=<%= local.distribuidor %>>
+            <input type="text" value=<%= pedido.distribuidor %>>
 
         </div>
         
         <div id="linguagem-div">
 
             <label for="linguagem-opcoes" id="linguagem-label">Linguagem</label>
-            <input type="text" value=<%= local.linguagem %>>
+            <input type="text" value=<%= pedido.linguagem %>>
 
         </div>
 
@@ -24,13 +24,13 @@
 
             <label for="jogos-opcoes" id="jogos-label">Jogos</label>
 
-            <% if (local.jogos.length > 5) { %> 
+            <% if (pedido.jogos.length > 5) { %> 
 
-                <input type="text" value=<%= local.jogos %>>
+                <input type="text" value=<%= pedido.jogos %>>
 
-            <% } else for (var i = 0; i < local.jogos.length; i++ ) { %>
+            <% } else for (var i = 0; i < pedido.jogos.length; i++ ) { %>
 
-                <input type="text" value=<%= local.jogos[i] %>>
+                <input type="text" value=<%= pedido.jogos[i] %>>
 
             <% } %>
     
@@ -39,21 +39,21 @@
         <div id="placas-div">
 
             <label for="placas-opcoes" id="placas-label">Placas (até 10)</label>
-            <input type="number" value=<%= local.placas %>>
+            <input type="number" value=<%= pedido.placas %>>
     
         </div>
 
         <div id="local-div">
 
             <label for="local-opcoes" id="local-label">Local</label>
-            <input type="text" value=<%= local.local %>>
+            <input type="text" value=<%= pedido.local %>>
 
         </div>
 
         <div id="cidade-div">
 
             <label for="cidade-opcoes" id="cidade-label">Cidade</label>
-            <input type="text" value=<%= local.cidade %>>
+            <input type="text" value=<%= pedido.cidade %>>
 
         </div>
 
@@ -62,18 +62,18 @@
     <br>
 
     <div class="col-12">
-        <form action="/admin/local_approval/:id/edit" method="GET">
+        <form action="/admin/local_approval/<%= pedido._id %>/edit" method="GET">
             <button class="btn btn-dark">Editar pedido</button>
         </form>
     </div>
     <div class="col-12">
-        <form action="/admin/local_approval/:id/post" method="POST">
+        <form action="/admin/local_approval/<%= pedido._id %>/post" method="POST">
             <button onclick="return confirm('Tem certeza de que deseja APROVAR esse pedido?')" class="btn btn-dark">Aprovar pedido</button>
         </form>
     </div>
     <br><br>
     <div class="col-12">
-        <form action="/admin/local_approval/:id/delete" method="POST">
+        <form action="/admin/local_approval/<%= pedido._id %>/delete" method="POST">
             <button onclick="return confirm('Tem certeza de que deseja NEGAR esse pedido?')" id="delete-button" class="btn btn-dark">Negar pedido</button>
         </form>
     </div>
