@@ -194,13 +194,27 @@ app.get('/admin/local_approval', isLoggedIn, async (req, res) => {
 
     res.render('localapproval.ejs', { waitingApproval });
 })
-app.get('/admin/local_approval/:id/check', isLoggedIn, async (req, res) => {
 
+app.get('/admin/local_approval/:id/check', isLoggedIn, async (req, res) => {
     const {id} = req.params;
 
     const local = await nonApprovedOrder.findById(id);
 
-    res.render('localapprovaledit.ejs', { local });
+    res.render('localapprovalcheck.ejs', { local });
+})
+
+app.post('/admin/local_approval/:id/post', isLoggedIn, async (req, res) => {
+    const {id} = req.params;
+
+    const local = await nonApprovedOrder.findById(id);
+
+    const newOrder = new Order( local );
+
+    await newOrder.save();
+
+    await nonApprovedOrder.findByIdAndDelete(id);
+
+    res.redirect('/local/:id');
 })
 
 app.get('/', (req, res) => {

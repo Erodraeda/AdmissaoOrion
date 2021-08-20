@@ -1,8 +1,6 @@
 <%- include('partials/header') %>
 
 <%- include('partials/navbar') %>
-
-<form action="/local_order" method="POST">
     
     <div id="local-order-title">Local Order</div>
 
@@ -61,6 +59,21 @@
 
     </div>
 
-</form>
+    <div class="col-12">
+        <form action="/admin/local_approval/:id/edit" method="GET">
+            <button class="btn btn-dark">Editar pedido</button>
+        </form>
+    </div>
+    <div class="col-12">
+        <form action="/admin/local_approval/:id/post" method="POST">
+            <button onclick="return confirm('Tem certeza de que deseja APROVAR esse pedido?')" class="btn btn-dark">Aprovar pedido</button>
+        </form>
+    </div>
+    <br><br>
+    <div class="col-12">
+        <form action="/admin/local_approval/:id/delete" method="POST">
+            <button onclick="return confirm('Tem certeza de que deseja NEGAR esse pedido?')" id="delete-button" class="btn btn-dark">Negar pedido</button>
+        </form>
+    </div>
 
 <%- include('partials/footer') %>
