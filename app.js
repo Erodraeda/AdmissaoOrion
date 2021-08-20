@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
-const passportLocalMongoose = require ('passport-local-mongoose');
 const app = express();
 
 // Definindo modelo de conta para autenticação
@@ -45,7 +44,7 @@ app.use(passport.session());
 
 passport.use(new LocalStrategy({
     usernameField: 'email'
-    }, User.authenticate()));
+}, User.authenticate()));
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
