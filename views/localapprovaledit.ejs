@@ -1,0 +1,86 @@
+<%- include('partials/header') %>
+
+<%- include('partials/navbar') %>
+
+    <form action="/admin/local_approval/:id/edit" method="POST">
+    
+        <div id="local-order-title">Local Order</div>
+
+        <div id="local-order-div">
+
+            <div id="distribuidor-div">
+
+                <label for="distribuidor-opcoes" id="distribuidor-label">Distribuidor</label>
+                <select name="distribuidor" id="distribuidor-select">
+                    <option disabled selected value=<%= local.distribuidor %>><%= local.distribuidor %></option>
+                    <option value="eua">EUA</option>
+                    <option value="mexico">México</option>
+                    <option value="chile">Chile</option>
+                </select>
+
+            </div>
+            
+            <div id="linguagem-div">
+
+                <label for="linguagem-opcoes" id="linguagem-label">Linguagem</label>
+                <select name="linguagem" id="linguagem-select">
+                    <option disabled selected value=<%= local.distribuidor %>><%= local.distribuidor %></option>
+                    <option value="ingles">Inglês</option>
+                    <option value="espanhol">Espanhol</option>
+                </select>
+
+            </div>
+
+            <div id="jogos-div">
+
+                <label for="jogos-opcoes" id="jogos-label">Jogos</label>
+
+                <% for (var i = 0; i < 5; i++ ) { %>
+
+                <select name="jogos" id="jogos-select">
+                    <option disabled selected value=<%= local.distribuidor %>><%= local.distribuidor %></option>
+                    <option value="halloween">Halloween</option>
+                    <option value="valentinesday">Valentine's Day</option>
+                    <option value="eastersunday">Easter Sunday</option>
+                    <option value="newyear">New Year</option>
+                    <option value="lunarnewyear">Lunar New Year</option>
+                    <option value="thanksgiving">Thanksgiving</option>
+                    <option value="diademuertos">Día de Muertos</option>
+                </select>
+
+                <% } %>
+        
+            </div>
+
+            <div id="placas-div">
+
+                <label for="placas-opcoes" id="placas-label">Placas (até 10)</label>
+                <input type="number" name="placas" id="placas-input" min="0" max="10" value=<%= local.distribuidor %>>
+        
+            </div>
+
+            <div id="local-div">
+
+                <label for="local-opcoes" id="local-label">Local</label>
+                <input type="text" name="local" id="local-input" maxlength="30" value=<%= local.distribuidor %>>
+
+            </div>
+
+            <div id="cidade-div">
+
+                <label for="cidade-opcoes" id="cidade-label">Cidade</label>
+                <input type="text" name="cidade" id="cidade-input" value=<%= local.distribuidor %>>
+
+            </div>
+
+        </div>
+
+        <div class="col-12">
+            <button class="btn btn-dark">Editar pedido</button>
+        </div>
+    
+    </form>
+
+    <script type="text/javascript" src="js/localorder.js"></script>
+
+<%- include('partials/footer') %>

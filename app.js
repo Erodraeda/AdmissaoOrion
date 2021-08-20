@@ -203,6 +203,22 @@ app.get('/admin/local_approval/:id/check', isLoggedIn, async (req, res) => {
     res.render('localapprovalcheck.ejs', { local });
 })
 
+app.get('/admin/local_approval/:id/edit', isLoggedIn, async (req, res) => {
+    const {id} = req.params;
+
+    const local = await nonApprovedOrder.findById(id);
+
+    res.render('localapprovaledit.ejs', { local });
+})
+
+app.post('/admin/local_approval/:id/edit', isLoggedIn, async (req, res) => {
+    const {id} = req.params;
+
+    const local = await nonApprovedOrder.findByIdAndUpdate(id);
+
+    res.render('localapprovalcheck.ejs', { local });
+})
+
 app.post('/admin/local_approval/:id/post', isLoggedIn, async (req, res) => {
     const {id} = req.params;
 
