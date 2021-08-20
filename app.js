@@ -11,6 +11,7 @@ const app = express();
 
 const User = require('./models/account');
 const Order = require('./models/order');
+const nonApprovedOrder = require('./models/newOrder');
 
 // Conectando ao database
 
@@ -151,7 +152,7 @@ app.post('/local_order', isLoggedIn, async (req, res) => {
             else if (jogos[i] == 'thanksgiving') sku += 'Th';
             else if (jogos[i] == 'diademuertos') sku += 'Di';
         }
-        const newOrder = new Order( {distribuidor, linguagem, contrato, porcentagem, placas, jogos, local, cidade, sku} );
+        const newOrder = new nonApprovedOrder( {distribuidor, linguagem, contrato, porcentagem, placas, jogos, local, cidade, sku} );
         await newOrder.save();
         console.log(newOrder);
     } catch (err) {
@@ -179,10 +180,27 @@ app.get('/locals/search', isLoggedIn, async (req, res) => {
         
 })
 
-app.get('/local_approval', isLoggedIn, async (req, res) => {
+app.get('/local/:id', isLoggedIn, async (req, res) => {
+    const {id} = req.params;
 
+    const local = await Order.findById(id);
 
-    res.render('localapproval.ejs');
+    res.render('local.ejs', { local });
+})
+
+app.get('/admin/local_approval', isLoggedIn, async (req, res) => {
+
+    const waitingApproval = await nonApprovedOrder.find({});
+
+    res.render('localapproval.ejs', { waitingApproval });
+})
+app.get('/admin/local_approval/:id/check', isLoggedIn, async (req, res) => {
+
+    const {id} = req.params;
+
+    const local = await nonApprovedOrder.findById(id);
+
+    res.render('localapprovaledit.ejs', { local });
 })
 
 app.get('/', (req, res) => {

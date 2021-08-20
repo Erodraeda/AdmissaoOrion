@@ -3,28 +3,28 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/home">Home</a>
+            <a class="nav-link active" aria-current="page" href="/home">Página Inicial</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/local_order">Order Locals</a>
+            <a class="nav-link" href="/local_order">Fazer pedidos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/locals">Search for Locals</a>
+            <a class="nav-link" href="/locals">Pesquisa de locals</a>
           </li>
           <% if (currentUser && currentUser.role == "admin") { %>
           <li class="nav-item">
-            <a class="nav-link" href="/local_approval">Local Approval</a>
+            <a class="nav-link" href="/admin/local_approval">Aprovação de pedidos</a>
           </li>
           <% } %>
         </ul>
         </div>
         <div class="navbar-text">
           <% if (currentUser) { %> 
-            <a href="/logout" id="login-button">Sign out</a>
+            <a href="/logout" id="login-button">Desconectar</a>
           <% } else { %> 
-            <a href="/login" id="login-button">Sign in</a>
+            <a href="/login" id="login-button">Fazer login</a>
             <br>
-            <a href="/register" id="register-button">New here?</a>
+            <a href="/register" id="register-button">Novo aqui?</a>
           <% } %> 
         </div>
     </div>

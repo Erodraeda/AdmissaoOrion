@@ -4,4 +4,22 @@
 
  <h1>Approval Page</h1>
 
+    <% if (currentUser && currentUser.role == "admin") { %>
+
+        <ul>
+            <% for (result of waitingApproval) { %> 
+                <li> 
+                    <a href="/admin/local_approval/<%= result._id %>/check"><%= result.local %></a>
+                    <br>
+                    <%= waitingApproval %>
+                </li>
+            <% } %> 
+        </ul>
+
+    <% } else { %>
+
+        <h2>Esta página é apenas para administradores! Como chegaste aqui...?</h2>
+        
+    <% } %>
+
 <%- include('partials/footer') %>

@@ -1,0 +1,66 @@
+<%- include('partials/header') %>
+
+<%- include('partials/navbar') %>
+
+<form action="/local_order" method="POST">
+    
+    <div id="local-order-title">Local Order</div>
+
+    <div id="local-order-div">
+
+        <div id="distribuidor-div">
+
+            <label for="distribuidor-opcoes" id="distribuidor-label">Distribuidor</label>
+            <input type="text" value=<%= local.distribuidor %>>
+
+        </div>
+        
+        <div id="linguagem-div">
+
+            <label for="linguagem-opcoes" id="linguagem-label">Linguagem</label>
+            <input type="text" value=<%= local.linguagem %>>
+
+        </div>
+
+        <div id="jogos-div">
+
+            <label for="jogos-opcoes" id="jogos-label">Jogos</label>
+
+            <% if (local.jogos.length > 5) { %> 
+
+                <input type="text" value=<%= local.jogos %>>
+
+            <% } else for (var i = 0; i < local.jogos.length; i++ ) { %>
+
+                <input type="text" value=<%= local.jogos[i] %>>
+
+            <% } %>
+    
+        </div>
+
+        <div id="placas-div">
+
+            <label for="placas-opcoes" id="placas-label">Placas (até 10)</label>
+            <input type="number" value=<%= local.placas %>>
+    
+        </div>
+
+        <div id="local-div">
+
+            <label for="local-opcoes" id="local-label">Local</label>
+            <input type="text" value=<%= local.local %>>
+
+        </div>
+
+        <div id="cidade-div">
+
+            <label for="cidade-opcoes" id="cidade-label">Cidade</label>
+            <input type="text" value=<%= local.cidade %>>
+
+        </div>
+
+    </div>
+
+</form>
+
+<%- include('partials/footer') %>

@@ -22,22 +22,28 @@
 
     <ul>
         <% for (resultS of resultSku) { %> 
-            <li>    
-                <%= resultS %> 
+            <li> 
+                <a href="/local/<%= resultS._id %>"><%= resultS.local %></a>
+                <br>
+                <%= resultS %>
             </li>
         <% } %> 
     </ul>
     <ul>
         <% for (resultN of resultNome) { %> 
             <li>
-                <%= resultN %> 
+                <a href="/local/<%= resultN._id %>"><%= resultN.local %></a>
+                <br>
+                <%= resultN %>
             </li>
         <% } %> 
     </ul>
     <ul>
         <% for (resultC of resultCidade) { %> 
             <li>
-                <%= resultC %> 
+                <a href="/local/<%= resultC._id %>"><%= resultC.local %></a>
+                <br>
+                <%= resultC %>
             </li>
         <% } %> 
     </ul>
