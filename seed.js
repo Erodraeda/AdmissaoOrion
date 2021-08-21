@@ -9,6 +9,7 @@ const app = express();
 
 const User = require('./models/account');
 const Order = require('./models/order');
+const nonApprovedOrder = require('./models/newOrder');
 
 mongoose.connect('mongodb://localhost:27017/dbAdmissao', {useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => {
@@ -101,6 +102,32 @@ const local3 = new Order({
     sku: "CHI-ESP-06-ThEaDi"
 })
 
+// Criação de Locals não aprovados
+
+const localNaoAprovado1 = new nonApprovedOrder({
+    distribuidor: "chile",
+    linguagem: "espanhol",
+    contrato: "multiplos",
+    porcentagem: "30",
+    placas: "2",
+    jogos: ["thanksgiving", "eastersunday", "halloween", "valentinesday"],
+    local: "Loja Chilena",
+    cidade: "Santiago",
+    sku: "CHI-ESP-02-ThEaHaVa"
+})
+
+const localNaoAprovado2 = new nonApprovedOrder({
+    distribuidor: "mexico",
+    linguagem: "espanhol",
+    contrato: "multiplos",
+    porcentagem: "30",
+    placas: "9",
+    jogos: ["lunarnewyear","diademuertos"],
+    local: "Loja Mexicana",
+    cidade: "Ciudad del Mexico",
+    sku: "MEX-ESP-09-LuDi"
+})
+
 // Adição de seeds à database
 
 function createAccount1(conta1) {
@@ -153,6 +180,14 @@ createAccount3(conta3);
 createAdmin1(admin1);
 
 Order.insertMany([local1, local2, local3])
+    .then(res => {
+        console.log(res)
+    })
+    .catch(e => {
+        console.log(e)
+    })
+
+nonApprovedOrder.insertMany([localNaoAprovado1, localNaoAprovado2])
     .then(res => {
         console.log(res)
     })
