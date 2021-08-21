@@ -116,13 +116,30 @@ app.post('/local_order', isLoggedIn, async (req, res) => {
         const { distribuidor, linguagem, placas, jogos, local, cidade } = req.body;
         var porcentagem;
         var contrato;
+        var gamesku = "";
         if (jogos.length <= 5) {
             porcentagem = 30;
             contrato = 'multiplos';
+            for (var i = 0; i < 5; i ++) {
+                if (jogos[i] == 'halloween') gamesku += 'Ha';
+                else if (jogos[i] == 'valentinesday') gamesku += 'Va';
+                else if (jogos[i] == 'eastersunday') gamesku += 'Ea';
+                else if (jogos[i] == 'newyear') gamesku += 'Ne';
+                else if (jogos[i] == 'lunarnewyear') gamesku += 'Lu';
+                else if (jogos[i] == 'thanksgiving') gamesku += 'Th';
+                else if (jogos[i] == 'diademuertos') gamesku += 'Di';
+            }
         }
         else if (jogos.length > 5) {
             porcentagem = 10;
             contrato = 'unico';
+                if (jogos == 'halloween') gamesku += 'Ha';
+                else if (jogos == 'valentinesday') gamesku += 'Va';
+                else if (jogos == 'eastersunday') gamesku += 'Ea';
+                else if (jogos == 'newyear') gamesku += 'Ne';
+                else if (jogos == 'lunarnewyear') gamesku += 'Lu';
+                else if (jogos == 'thanksgiving') gamesku += 'Th';
+                else if (jogos == 'diademuertos') gamesku += 'Di';
         }
         var sku = "";
         if (distribuidor == 'eua') sku += 'EUA';
@@ -143,15 +160,7 @@ app.post('/local_order', isLoggedIn, async (req, res) => {
         else if (placas == 9) sku += '09';
         else if (placas == 10) sku += '10';
         sku += '-';
-        for (var i = 0; i < 5; i ++) {
-            if (jogos[i] == 'halloween') sku += 'Ha';
-            else if (jogos[i] == 'valentinesday') sku += 'Va';
-            else if (jogos[i] == 'eastersunday') sku += 'Ea';
-            else if (jogos[i] == 'newyear') sku += 'Ne';
-            else if (jogos[i] == 'lunarnewyear') sku += 'Lu';
-            else if (jogos[i] == 'thanksgiving') sku += 'Th';
-            else if (jogos[i] == 'diademuertos') sku += 'Di';
-        }
+        sku += gamesku;
         const newOrder = new nonApprovedOrder( {distribuidor, linguagem, contrato, porcentagem, placas, jogos, local, cidade, sku} );
         await newOrder.save();
         console.log(newOrder);

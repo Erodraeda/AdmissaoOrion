@@ -6,17 +6,24 @@
 
     <div id="local-order-div">
 
+        <div id="sku-div">
+
+            <label for="sku-opcoes" id="sku-label">SKU</label>
+            <input type="text" value=<%= pedido.sku %> disabled>
+
+        </div>
+
         <div id="distribuidor-div">
 
             <label for="distribuidor-opcoes" id="distribuidor-label">Distribuidor</label>
-            <input type="text" value=<%= pedido.distribuidor %>>
+            <input type="text" value=<%= pedido.distribuidor %> disabled>
 
         </div>
         
         <div id="linguagem-div">
 
             <label for="linguagem-opcoes" id="linguagem-label">Linguagem</label>
-            <input type="text" value=<%= pedido.linguagem %>>
+            <input type="text" value=<%= pedido.linguagem %> disabled>
 
         </div>
 
@@ -26,11 +33,11 @@
 
             <% if (pedido.jogos.length > 5) { %> 
 
-                <input type="text" value=<%= pedido.jogos %>>
+                <input type="text" value=<%= pedido.jogos %> disabled>
 
             <% } else for (var i = 0; i < pedido.jogos.length; i++ ) { %>
 
-                <input type="text" value=<%= pedido.jogos[i] %>>
+                <input type="text" value=<%= pedido.jogos[i] %> disabled>
 
             <% } %>
     
@@ -39,21 +46,21 @@
         <div id="placas-div">
 
             <label for="placas-opcoes" id="placas-label">Placas (até 10)</label>
-            <input type="number" value=<%= pedido.placas %>>
+            <input type="number" value=<%= pedido.placas %> disabled>
     
         </div>
 
         <div id="local-div">
 
             <label for="local-opcoes" id="local-label">Local</label>
-            <input type="text" value=<%= pedido.local %>>
+            <input type="text" value=<%= pedido.local %> disabled>
 
         </div>
 
         <div id="cidade-div">
 
             <label for="cidade-opcoes" id="cidade-label">Cidade</label>
-            <input type="text" value=<%= pedido.cidade %>>
+            <input type="text" value=<%= pedido.cidade %> disabled>
 
         </div>
 
