@@ -17,8 +17,8 @@
             <input type="text" class="form-control" name="RUT" id="RUT" pattern="[0-9]{9}" placeholder="Insira seu RUT (apenas numeros)" required>
         </div>
         <div class="col-md-12">
-          <label for="password" class="form-label">Password</label>
-          <input type="password" class="form-control" name="password" id="password" placeholder="Insira sua senha" required>
+          <label for="password" class="form-label">Password (Senha de 12 caracteres, sendo 2 letras maiúsculas, 2 letras minúsculas, 2 números e 2 caracteres especiais)</label>
+          <input type="password" class="form-control" name="password" id="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?:.{12})" placeholder="Insira sua senha" required>
         </div>
         <div class="col-12">
           <div class="form-check">
